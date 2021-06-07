@@ -23,6 +23,28 @@ def main():
     results = results.reshape(-1, 3)
     print("results", len(results))
     results.ravel()
+    
+    matrix = []
+    for i in range(30):
+        row = []
+        for j in range(30):
+            row.append(0)
+        matrix.append(row)
+    matrix = numpy.array(matrix)
+    print(matrix)
+    
+    for element in results:
+        if element[2] == 0:
+            continue
+        rowNumber = 10 * (int(element[0][0:2].strip()) - 1) + int(element[0][2:4].strip()) - 1
+        colNumber = 10 * (int(element[1][0:2].strip()) - 1) + int(element[1][2:4].strip()) - 1
+        print(rowNumber, colNumber)
+        matrix[rowNumber][colNumber] = int(element[2])
+        matrix[colNumber][rowNumber] = int(element[2])
+        
+    print(matrix)
+    numpy.savetxt('matrix.txt', matrix, delimiter=',', fmt="%s")
+    
     numpy.savetxt('results.csv',results, delimiter=',', fmt="%s")
     print(results)
 
